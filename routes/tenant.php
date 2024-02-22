@@ -84,6 +84,6 @@ Route::middleware([
 
 
         //  Dashboard routes
-        Route::get('/dashboard', fn () => view('app'))->middleware('verified')->name('dashboard');
+        Route::get('/dashboard', fn () => view('tenant', ['tenant' => tenant()]))->middleware('verified')->name('dashboard');
     });
 });
