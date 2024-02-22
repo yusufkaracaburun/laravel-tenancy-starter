@@ -1,11 +1,20 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+import path from "path";
 
 export default defineConfig({
     plugins: [
+        vue({
+            template: {
+                transformAssetUrls: {
+                    base: null,
+                    includeAbsolute: false,
+                },
+            },
+        }),
         laravel({
-            input: 'resources/js/app.js',
+            input: ["resources/css/app.css", "resources/ts/app.ts"],
             refresh: true,
         }),
         vue({
@@ -17,4 +26,13 @@ export default defineConfig({
             },
         }),
     ],
+    resolve: {
+        alias: {
+            "@/": path.join(__dirname, "/resources/ts/src/"),
+            "~": path.join(__dirname, "/node_modules/"),
+        },
+    },
+    build: {
+        chunkSizeWarningLimit: 3000,
+    },
 });

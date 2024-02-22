@@ -1,0 +1,53 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "downlevelIteration": true,
+        "noImplicitAny": false,
+        "target": "es5",
+        "module": "esnext",
+        "strict": true,
+        "jsx": "preserve",
+        "importHelpers": true,
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "baseUrl": ".",
+        "types": [
+            "webpack-env",
+            "element-plus/global",
+            "vite/client",
+            "bootstrap",
+            "vue-cal"
+        ],
+        "paths": {
+            "@/*": [
+                "resources/ts/src/*"
+            ]
+        },
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable",
+            "scripthost"
+        ],
+        "ignoreDeprecations": "5.0"
+    },
+    "include": [
+        "resources/ts/src/**/*.ts",
+        "resources/ts/src/**/*.tsx",
+        "resources/ts/src/**/*.vue",
+        "resources/ts/tests/**/*.ts",
+        "resources/ts/tests/**/*.tsx"
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+    "references": [
+        {
+            "path": "./tsconfig.config.json"
+        }
+    ]
+}

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\AppController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -32,7 +33,10 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function (): void {
-    Route::get('/', fn () => 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id'));
+    Route::get('/sign-in', [AppController::class, 'index'])->name('login');
+    Route::get('/{any}', [AppController::class, 'index'])->where('any', '.*')->name('home');
+
+//    Route::get('/', fn () => 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id'));
 
     // Guest routes
     Route::middleware('guest')->group(function (): void {
@@ -84,6 +88,6 @@ Route::middleware([
 
 
         //  Dashboard routes
-        Route::get('/dashboard', fn () => view('tenant', ['tenant' => tenant()]))->middleware('verified')->name('dashboard');
+        Route::get('/dashboard', fn () => view('planny', ['tenant' => tenant()]))->middleware('verified')->name('dashboard');
     });
 });
