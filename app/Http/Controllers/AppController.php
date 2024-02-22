@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Artisan;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
 
 class AppController extends Controller
 {
