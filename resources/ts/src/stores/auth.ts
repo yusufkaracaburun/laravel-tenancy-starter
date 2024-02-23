@@ -85,6 +85,16 @@ export const useAuthStore = defineStore("auth", () => {
     }
   }
 
+    function me() {
+        return ApiService.get("me")
+            .then(({ data }) => {
+                setAuth(data);
+            })
+            .catch(({ response }) => {
+                setError(response.data.errors);
+            });
+    }
+
   return {
     errors,
     user,
@@ -94,5 +104,6 @@ export const useAuthStore = defineStore("auth", () => {
     register,
     forgotPassword,
     verifyAuth,
+      me,
   };
 });

@@ -11,4 +11,9 @@ class AppController extends Controller
     {
         return view('planny', ['tenant' => tenant()]);
     }
+
+    public function dashboard(): Application|Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+    {
+        return view('planny', ['tenant' => tenant()]);
+    }
 }

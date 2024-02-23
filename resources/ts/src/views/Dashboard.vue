@@ -71,7 +71,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted } from "vue";
 import StatisticsWidget5 from "@/components/widgets/statsistics/Widget5.vue";
 import ListsWidget1 from "@/components/widgets/lists/Widget1.vue";
 import TablesWidget5 from "@/components/widgets/tables/Widget5.vue";
@@ -79,6 +79,7 @@ import ListsWidget3 from "@/components/widgets/lists/Widget3.vue";
 import ChartsWidget1 from "@/components/widgets/charts/Widget1.vue";
 import ListsWidget7 from "@/components/widgets/lists/Widget7.vue";
 import ListsWidget6 from "@/components/widgets/lists/Widget6.vue";
+import { useAuthStore } from "@/stores/auth";
 
 export default defineComponent({
   name: "dashboard-main",
@@ -91,5 +92,15 @@ export default defineComponent({
     ListsWidget7,
     ListsWidget6,
   },
+    setup() {
+      const auth = useAuthStore()
+
+        onMounted(async () => {
+            await auth.me();
+        })
+      return {
+
+      }
+    }
 });
 </script>

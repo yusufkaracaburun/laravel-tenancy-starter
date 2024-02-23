@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\AppController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -20,27 +19,25 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 |
 */
 
+require __DIR__ . '/tenant_auth.php';
+require __DIR__ . '/tenant_api.php';
+
 Route::middleware([
     'web',
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
-])->group(function (): void {
-    Route::get('/sign-in', [AppController::class, 'index'])->name('login');
-    Route::get('/{any}', [AppController::class, 'index'])->where('any', '.*')->name('home');
+])
+    ->group(function (): void {
+        //        Route::middleware([
+        //            'auth',
+        //            'verified',
+        //        ])->group(function (): void {
+        //            Route::get('dashboard', fn () => [AppController::class, 'dashboard'])
+        //                ->middleware('verified')
+        //                ->name('dashboard');
+        //        });
 
-    //    Route::get('/', fn () => 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id'));
+        Route::get('sign-in', [AppController::class, 'index'])->name('login');
+        Route::get('{any}', [AppController::class, 'index'])->where('any', '.*')->name('home');
 
-    // Authentication routes
-    Route::middleware('auth')
-        ->prefix('api')
-        ->group(function (): void {
-            Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-            Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-            Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-
-            Route::get('/dashboard', fn () => view('planny', ['tenant' => tenant()]))->middleware('verified')->name('dashboard');
-        });
-});
-
-require __DIR__ . '/tenant_auth.php';
+    });
